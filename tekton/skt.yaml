@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: basic-user-pass-docker
+    annotations:
+        tekton.dev/docker-0: https://index.docker.io
+type: Opaque
+data:
+    mongo-root-username: emFiYWthcg==
+    mongo-root-password: UXdlcnR5QDEyMzQ1Ng==
