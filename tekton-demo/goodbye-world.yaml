@@ -7,5 +7,5 @@ spec:
    - name: goodbye
      image: ubuntu
      script: |
-     #!/bin/sh
-     echo "Goodbye World!"
+      #!/bin/bash
+      echo "Goodbye World!"
