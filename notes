@@ -1,0 +1,8 @@
+Monitor the installation:
+kubectl get pods --namespace tekton-pipelines --watch
+
+Take a look at the logs:
+kubectl logs --selector=tekton.dev/taskRun=hello-task-run
+
+To see the logs of the PipelineRun, use the following command:
+tkn pipelinerun logs hello-goodbye-run -f -n default
