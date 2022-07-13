@@ -3,6 +3,8 @@ kind: Task
 metadata:
   name: java-task
 spec:
+  workspaces:
+  - name: common
   steps:
     - name: clone
       image: alpine/git
