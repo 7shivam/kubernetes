@@ -10,6 +10,7 @@ spec:
       image: alpine/git
       script: |
         git clone https://github.com/7shivam/application-emp.git
+        cd application-emp
     - name: mvn
       image: maven
       script: |
