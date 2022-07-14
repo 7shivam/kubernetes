@@ -1,17 +1,13 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: tekton-pv
+  name: pv0001 
 spec:
   capacity:
-    storage: 5Gi
-  volumeMode: Filesystem
+    storage: 5Gi 
   accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Recycle
-  storageClassName: slow
-  mountOptions:
-    - hard
-    - nfsvers=4.1
-  nfs:
-    path: 172.31.23.64:/ efs
+  - ReadWriteOnce 
+  nfs: 
+    path: / efs
+    server: 172.31.23.64
+  persistentVolumeReclaimPolicy: Retain 
