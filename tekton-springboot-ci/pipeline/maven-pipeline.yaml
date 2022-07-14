@@ -1,0 +1,63 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: maven-build
+spec:
+ 
+  workspaces:
+  - name: local-maven-repo
+  # params:
+  #   - name: sonartoken 
+  #     description: token for sonarqube
+  #     default: token
+  #     type: string
+  resources:
+  - name: app-git
+    type: git
+  tasks:
+  - name: build
+    taskRef:
+      name: mvn
+    resources:
+      inputs:
+      - name: source
+        resource: app-git
+    params:
+    - name: GOALS
+      value: ["package"]
+    workspaces:
+    - name: maven-repo
+      workspace: local-maven-repo
+  - name: unit-test
+    taskRef:
+      name: mvn
+    runAfter: ["build"]
+    resources:
+      inputs:
+      - name: source
+        resource: app-git
+    params:
+    - name: GOALS
+      value: ["verify"]
+    workspaces:
+    - name: maven-repo
+      workspace: local-maven-repo
+  - name: code-coverage
+    taskRef:
+      name: mvn
+    runAfter: ["unit-test"]
+    resources:
+      inputs:
+      - name: source
+        resource: app-git
+    params:
+    - name: GOALS
+      value: 
+        - install
+        - sonar:sonar
+        
+        - -Dsonar.host.url=http://20.120.1.222:9000/
+        - -Dsonar.login= ["$SONAR_TOKEN"]
+    workspaces:
+    - name: maven-repo
+      workspace: local-maven-repo

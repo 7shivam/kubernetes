@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: mysql-db
+spec:
+  workspaces:
+  - name: maven-repo
+  steps:
+    - name: mysql-db
+      image: ubuntu
+      script: |
+          #!/usr/bin/env bash
+           set -xe
+           
+            apt update -y
+            apt install mysql-server -y
+            systemctl start mysql.service
+           

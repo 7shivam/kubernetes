@@ -1,0 +1,20 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  generateName: springbootapp-run-
+spec:
+  serviceAccountName: build-bot
+  pipelineRef:
+    name: maven-build
+  resources:
+  - name: app-git
+    resourceSpec:
+      type: git
+      params:
+        - name: url
+          value: https://github.com/tvc-ctg/tekton-springboot.git
+  workspaces:
+  - name: local-maven-repo
+    persistentVolumeClaim:
+      claimName: maven-repo-pvc
